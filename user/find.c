@@ -71,11 +71,11 @@ find(char *path, char* name)
       if(de.inum == 0)
         continue;
       if(strcmp(de.name, ".") == 0 || strcmp(de.name, "..") == 0)
-	continue;
+	      continue;
       memmove(p, de.name, DIRSIZ);
       p[DIRSIZ] = 0;
       find(buf, name);
-      //printf("%s %d %d %d\n", fmtname(buf), st.type, st.ino, st.size);
+      
     }
     break;
   }
