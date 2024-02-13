@@ -24,12 +24,8 @@ main(int argc, char *argv[])
   argv2[argc-1] = line;
   argv2[argc] = 0;
   char* s = gets(line, MAXARG);
-
-  //print(argv, argc);
   while(s != 0 && strcmp(s, "") != 0) {
     line[strlen(line)-1] = 0;
-    //printf(s);
-    //print(argv2, argc);
     int pid = fork();
     if(pid == 0) {
       exec(argv2[0], argv2);
