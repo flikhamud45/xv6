@@ -10,29 +10,20 @@ int main(int argc, char *argv[])
     pipe(pipe2_fds);
     int pid = fork();
     if (pid == 0) {
-	// child
-	char buff[2];
-	read(pipe1_fds[0], buff, 1);
-	//char s[100];
-	//itoa(getpid(), s, 10);
-	//strcat(s, ": received ping\n");
-        //write(1, s, strlen(s));
-	printf("%d: received ping\n", getpid());
-        write(pipe2_fds[1], buff, 1);
+	    // child
+	    char buff[2];
+	    read(pipe1_fds[0], buff, 1);
+	    printf("%d: received ping\n", getpid());
+      write(pipe2_fds[1], buff, 1);
     }
     else {
-	// parent
-	write(pipe1_fds[1], "a", 1);
-	char buff[2];
-	read(pipe2_fds[0], buff, 1);
-	//char s[100];
-	//itoa(getpid(), s, 10);
-        //strcat(s, ": received pong\n");
-	//write(1, s, strlen(s));
-	printf("%d: received pong\n", getpid());
-	
-	
+    	// parent
+    	write(pipe1_fds[1], "a", 1);
+    	char buff[2];
+    	read(pipe2_fds[0], buff, 1);
+    	printf("%d: received pong\n", getpid());
     }
+  
     close(pipe1_fds[0]);
     close(pipe1_fds[1]);
     close(pipe2_fds[0]);
