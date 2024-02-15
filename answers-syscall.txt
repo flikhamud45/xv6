@@ -1,0 +1,6 @@
+userstrap
+7
+0x22
+s3
+the kernel crashed because there is no address mapped to address 0
+initcode 1
