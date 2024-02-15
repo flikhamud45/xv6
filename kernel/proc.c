@@ -6,6 +6,8 @@
 #include "proc.h"
 #include "defs.h"
 
+_Atomic int num_procs = 0;
+
 struct cpu cpus[NCPU];
 
 struct proc proc[NPROC];
@@ -169,6 +171,7 @@ freeproc(struct proc *p)
   p->killed = 0;
   p->xstate = 0;
   p->state = UNUSED;
+  num_procs -= 1;
 }
 
 // Create a user page table for a given process, with no user memory,
@@ -322,6 +325,7 @@ fork(void)
 
   acquire(&np->lock);
   np->state = RUNNABLE;
+  num_procs += 1;
   release(&np->lock);
 
   return pid;
@@ -682,4 +686,8 @@ procdump(void)
     printf("%d %s %s", p->pid, state, p->name);
     printf("\n");
   }
+}
+
+int get_nproc() {
+  return num_procs;
 }
