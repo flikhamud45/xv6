@@ -70,14 +70,14 @@ sys_sleep(void)
 }
 
 
-#ifdef LAB_PGTBL
-int
-sys_pgaccess(void)
-{
-  // lab pgtbl: your code here.
-  return 0;
-}
-#endif
+// #ifdef LAB_PGTBL
+// int
+// sys_pgaccess(void)
+// {
+//   // lab pgtbl: your code here.
+//   return 0;
+// }
+// #endif
 
 uint64
 sys_kill(void)
@@ -99,4 +99,31 @@ sys_uptime(void)
   xticks = ticks;
   release(&tickslock);
   return xticks;
+}
+
+uint64
+sys_pgaccess(void) {
+  uint64 starting_va;
+  int num_of_pages;
+  uint64 out_buff;
+  argaddr(0, &starting_va);
+  argint(1, &num_of_pages);
+  argaddr(2, &out_buff);
+  unsigned int ker_out_buff = 0;
+  struct proc *p = myproc();
+  pte_t * pte;
+
+  for(int i=0; i<num_of_pages; i++) {
+    uint64 va = starting_va + PGSIZE*i;
+    if ((pte = walk(p->pagetable, va, 0))) {
+      if(*pte & PTE_A) {
+        *pte = *pte & (~(unsigned int)PTE_A);
+        ker_out_buff =  ker_out_buff | (1 << i);
+      }
+    }
+  }
+  printf("%d\n", ker_out_buff);
+  copyout(p->pagetable, out_buff, (char*)&ker_out_buff, sizeof(ker_out_buff));
+  return 0;
+
 }
