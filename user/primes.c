@@ -37,17 +37,17 @@ int main(int argc, char *argv[])
     pipe(pipe_fds);
     int pid = fork();
     if (pid == 0) {
-	close(pipe_fds[1]);
-	run(pipe_fds[0]);
+	    close(pipe_fds[1]);
+	    run(pipe_fds[0]);
     }
     else {
-	// parent
-	close(pipe_fds[0]);
-	for(int i = 2; i < 35; i++) {
-		write(pipe_fds[1], &i, sizeof(i));
-	}
-	close(pipe_fds[1]);
-	wait(0);
+	    // parent
+	    close(pipe_fds[0]);
+	    for(int i = 2; i < 35; i++) {
+		    write(pipe_fds[1], &i, sizeof(i));
+	  }
+	    close(pipe_fds[1]);
+	    wait(0);
     };
     exit(0);
 }
