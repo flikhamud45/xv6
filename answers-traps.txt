@@ -1,0 +1,6 @@
+arguments are akk the a's for exapmle 13 is a2
+its on 26 even thought these function where not really calles because the compiler knew the answer imidietly
+642
+38
+will be printed: "He110 World". yes we would need to opposite the order of the bytes.
+will be printed trash that is stored in the a2 register.
