@@ -1,0 +1,3 @@
+because two threads might try to access the same slot in the same time. for example thread 1 chose to do entry 1 but thread 2 chose it as well.
+
+
